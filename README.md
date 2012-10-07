@@ -1,4 +1,4 @@
-playing-with-data
+Playing With Data
 =================
 
-Learning rails - processing data from CSV's
+Another project where I am learning Ruby/Rails. In this project I am going to be processing data from CSV's.
