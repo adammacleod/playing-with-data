@@ -11,7 +11,7 @@ class Call < ActiveRecord::Base
              .map { |i,j| i*j }
              .inject(:+)
     rescue ArgumentError
-      #TODO: How can I more meaningfully report on this error?
+      errors.add(:duration, "Duration #{val} is not valid.")
     end
     write_attribute(:duration, result)
   end

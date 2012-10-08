@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :bill do
-    csv "FakeCSV"
+    csv { File.open(File.join(Rails.root, 'doc', 'sample.csv')) }
   end
 end

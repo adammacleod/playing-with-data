@@ -1,7 +1,9 @@
+require 'csv'
+
 class Bill < ActiveRecord::Base
   attr_accessible :csv, :csv_cache
 
-  has_many :calls
+  has_many :calls, :dependent => :delete_all
 
   mount_uploader :csv, BillUploader
 
@@ -14,7 +16,7 @@ class Bill < ActiveRecord::Base
       call = self.calls.build()
       call.source = row[:source]
       call.destination = row[:source]
-      call.datetime = DateTime.parse("#{row[:date]} #{row[:time]}")
+      call.datetime = "#{row[:date]} #{row[:time]}"
       call.duration = row[:duration]
       call.cost = row[:cost]
       call.save
