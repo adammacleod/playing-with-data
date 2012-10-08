@@ -40,6 +40,10 @@ describe Call do
     FactoryGirl.build(:call, duration: 0).should be_valid
   end
 
+  it "is invalid with a malformed duration" do
+    FactoryGirl.build(:call, duration: "m:al:fo:rm").should_not be_valid
+  end
+
   it "converts duration strings expressed as hh:mm:ss to seconds" do
     call.duration = "1:33:34"
     call.duration.should eq(5614)
