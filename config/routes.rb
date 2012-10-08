@@ -1,4 +1,8 @@
 PlayingWithData::Application.routes.draw do
+  resources :bills
+
+  root :to => "bills#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
