@@ -55,7 +55,7 @@ describe Call do
     call.duration.should eq(55)
   end
 
-  if "accepts an empty duration string as nil" do
+  it "accepts an empty duration string as nil" do
     call.duration = ""
     call.duration.should eq(nil)
   end
