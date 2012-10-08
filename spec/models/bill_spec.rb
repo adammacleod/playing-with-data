@@ -6,6 +6,6 @@ describe Bill do
   end
 
   it "is invalid without a csv" do
-    FactoryGirl.build(:call, csv: nil).should_not be_valid
+    FactoryGirl.build(:bill, csv: nil).should_not be_valid
   end
 end
