@@ -3,5 +3,7 @@ class Bill < ActiveRecord::Base
 
   has_many :calls
 
+  mount_uploader :csv, BillUploader
+
   validates :csv, :presence => true
 end
