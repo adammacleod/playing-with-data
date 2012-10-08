@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Call do
+  let(:call) { Call.new }
+
   it "has a valid Factory" do
     FactoryGirl.create(:call).should be_valid
   end
@@ -36,6 +38,21 @@ describe Call do
 
   it "is valid with a 0 duration" do
     FactoryGirl.build(:call, duration: 0).should be_valid
+  end
+
+  it "converts duration strings expressed as hh:mm:ss to seconds" do
+    call.duration = "1:33:34"
+    call.duration.should eq(5614)
+  end
+
+  it "converts duration strings expressed as mm:ss to seconds" do
+    call.duration = "19:12"
+    call.duration.should eq(1152)
+  end
+
+  it "accepts a string representing an integer as a valid duration" do
+    call.duration = "55"
+    call.duration.should eq(55)
   end
 
   #
