@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :bill do
-    csv "MyString"
+    csv "FakeCSV"
   end
 end

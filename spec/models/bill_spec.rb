@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Bill do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "has a valid Factory" do
+    FactoryGirl.create(:bill).should be_valid
+  end
+
+  it "is invalid without a csv" do
+    FactoryGirl.build(:call, csv: nil).should_not be_valid
+  end
 end
