@@ -6,7 +6,7 @@ class CreateCalls < ActiveRecord::Migration
       t.string :destination
       t.datetime :datetime
       t.integer :duration
-      t.decimal :cost
+      t.decimal :cost, :precision => 10, :scale => 2, :default => 0.0
 
       t.timestamps
     end
