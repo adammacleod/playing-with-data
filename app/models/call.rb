@@ -5,7 +5,7 @@ class Call < ActiveRecord::Base
   def duration=(val)
     begin
       result = val.to_s.split(/:/)
-             .map { |t| Integer(t) }
+             .map { |t| t.to_i }
              .reverse
              .zip([60**0, 60**1, 60**2])
              .map { |i,j| i*j }

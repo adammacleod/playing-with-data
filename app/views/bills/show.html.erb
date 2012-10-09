@@ -22,15 +22,13 @@
         <td><%= totals['count'] %></td>
         <td><%= totals['duration'] %></td>
         <td><%= totals['cost'] %></td>
-        <td><%= totals['avg_duration'] %></td>
-        <td><%= totals['avg_cost'] %></td>
+        <td><%= totals['avg_duration'].round(2) %>s</td>
+        <td><%= number_to_currency(totals['avg_cost']) %></td>
       </tr>
     <% end %>
   </table>
 
-  <hr>
-
-  <h2>Calls</h2>
+<!--   <h2>Calls</h2>
     <table>
     <thead>
       <tr>
@@ -51,6 +49,6 @@
         <td><%= call.duration %></td>
         <td><%= call.cost %></td>
       </tr>
-    <% end %>
-    </table>
+    <% end if false %>
+    </table> -->
 </div>
