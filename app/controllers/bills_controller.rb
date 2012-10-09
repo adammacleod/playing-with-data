@@ -1,7 +1,7 @@
 class BillsController < ApplicationController
   # GET /bills
   def index
-    @bills = Bill.all
+    @bills = Bill.all.reverse
   end
 
   # GET /bills/new

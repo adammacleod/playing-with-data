@@ -12,6 +12,11 @@
     <div class="navbar-inner">
       <div class="container">
         <%= link_to 'Playing With Data', root_path, html_options = { class: "brand" } %>
+        <div class="nav-collapse collapse">
+          <ul class="nav pull-right">
+            <li><%= link_to "New Bill", new_bill_path %></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
   </div>

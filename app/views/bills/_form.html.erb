@@ -1,7 +1,7 @@
 <%= form_for(@bill) do |f| %>
   <% if @bill.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+    <div class="alert alert-error">
+      <h3><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h3>
 
       <ul>
       <% @bill.errors.full_messages.each do |msg| %>
@@ -12,7 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :csv, "Upload CSV" %>
     <%= f.file_field :csv %>
     <%= f.hidden_field :csv_cache %>
   </div>
