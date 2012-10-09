@@ -1,4 +1,4 @@
-<h1>Bill <small><%= @bill.created_at.localtime.strftime("%l:%M%p %h %e %Y") %></small></h1>
+<h1>Bill <small>Uploaded <%= @bill.created_at.localtime.strftime("%l:%M%p %h %e %Y") %></small></h1>
 <div>
   <%= link_to @bill.csv.file.filename, @bill.csv.url %><br>
 
