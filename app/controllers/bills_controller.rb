@@ -17,7 +17,7 @@ class BillsController < ApplicationController
       if @bill.save
         format.html { redirect_to @bill }
       else
-        format.html { format.html { render action: "new" } }
+        format.html { render action: "new" }
       end
     end
   end

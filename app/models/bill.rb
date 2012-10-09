@@ -7,19 +7,24 @@ class Bill < ActiveRecord::Base
 
   mount_uploader :csv, BillUploader
 
-  before_create :process_csv
+  before_validation :process_csv, :if => "csv.present?"
 
   def process_csv
-    CSV.foreach(self.csv.current_path, { :headers => :first_row, :header_converters => :symbol } ) do |row|
-      logger.debug row.inspect
-      logger.debug row[:source].inspect
-      call = self.calls.build()
-      call.source = row[:source]
-      call.destination = row[:source]
-      call.datetime = "#{row[:date]} #{row[:time]}"
-      call.duration = row[:duration]
-      call.cost = row[:cost]
-      call.save
+    CSV.open(self.csv.current_path, { :headers => :first_row, :header_converters => :symbol } ) do |csv|
+      csv.each do |row|
+        # csv.lineno
+        call = self.calls.build()
+        call.source = row[:source]
+        call.destination = row[:source]
+        call.datetime = "#{row[:date]} #{row[:time]}"
+        call.duration = row[:duration]
+        call.cost = row[:cost]
+        unless call.valid?
+          call.errors.each do |attr, message|
+            errors.add(:csv, "Line #{csv.lineno}, #{attr} #{message}")
+          end
+        end
+      end
     end
   end
 

@@ -20,7 +20,6 @@ class Call < ActiveRecord::Base
   # http://stackoverflow.com/questions/1019939/ruby-on-rails-best-method-of-handling-currency-money
   # https://github.com/tobi/money_column
 
-  validates :bill, :presence => true
   validates :source, :presence => true
   validates :destination, :presence => true
   validates :datetime, :presence => true
