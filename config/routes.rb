@@ -1,5 +1,5 @@
 PlayingWithData::Application.routes.draw do
-  resources :bills
+  resources :bills, :except => [:edit, :destroy, :update]
 
   root :to => "bills#index"
 
