@@ -25,5 +25,22 @@ class BillsController < ApplicationController
   # GET /bills/:id
   def show
     @bill = Bill.find(params[:id])
+
+    @totals = summarize_calls(@bill.calls.group('source'))
+    @totals.merge!({ 'TOTAL' => summarize_calls(@bill.calls).values.first })
+  end
+
+  def summarize_calls(calls)
+    calls.select("
+      source,
+      count(*) as count,
+      sum(duration) as duration,
+      sum(cost) as cost,
+      avg(duration) as avg_duration,
+      avg(cost) as avg_cost").
+      inject({}) { |r, totals|
+        r[totals.source] = totals.attributes
+        r
+      }
   end
 end

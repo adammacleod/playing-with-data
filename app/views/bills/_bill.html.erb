@@ -1,3 +1,56 @@
+<h1>Bill <small><%= bill.created_at %></small></h1>
 <div>
-  <%= bill.created_at %> <%= bill.csv %>
+  Original CSV: <%= bill.csv %><br>
+
+  <hr>
+
+  <h2>Reports</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Source Number</th>
+        <th>Total Calls</th>
+        <th>Total Duration</th>
+        <th>Total Cost</th>
+        <th>Average Duration</th>
+        <th>Average Cost</th>
+      </tr>
+    </thead>
+    <% @totals.each do |source, totals| %>
+      <tr>
+        <td><%= source %></td>
+        <td><%= totals['count'] %></td>
+        <td><%= totals['duration'] %></td>
+        <td><%= totals['cost'] %></td>
+        <td><%= totals['avg_duration'] %></td>
+        <td><%= totals['avg_cost'] %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <hr>
+
+  <h2>Calls</h2>
+    <table>
+    <thead>
+      <tr>
+        <th>Source Number</th>
+        <th>Destination Number</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Duration</th>
+        <th>Cost</th>
+      </tr>
+    </thead>
+    <% @bill.calls.each do |call| %>
+      <tr>
+        <td><%= call.source %></td>
+        <td><%= call.destination %></td>
+        <td><%= call.datetime.to_date %></td>
+        <td><%= call.datetime.strftime("%H:%M:%S") %></td>
+        <td><%= call.duration %></td>
+        <td><%= call.cost %></td>
+      </tr>
+    <% end %>
+    </table>
 </div>
