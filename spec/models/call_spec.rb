@@ -17,8 +17,11 @@ describe Call do
     it "is invalid without a destination" do
       FactoryGirl.build(:call, destination: nil).should_not be_valid
     end
-    it "is invalid without a datetime" do
-      FactoryGirl.build(:call, datetime: nil).should_not be_valid
+    it "is invalid without a date" do
+      FactoryGirl.build(:call, date: nil).should_not be_valid
+    end
+    it "is invalid without a time" do
+      FactoryGirl.build(:call, time: nil).should_not be_valid
     end
     it "is invalid without a duration" do
       FactoryGirl.build(:call, duration: nil).should_not be_valid
@@ -45,10 +48,6 @@ describe Call do
 
     it "is invalid with a malformed duration" do
       FactoryGirl.build(:call, duration: "m:al:fo:rm").should_not be_valid
-    end
-
-    it "reports error with a malformed duration" do
-      FactoryGirl.build(:call, duration: "m:al:fo:rm").errors[:duration].should eql ['Duration m:al:fo:rm is not valid.']
     end
 
     it "converts duration strings expressed as hh:mm:ss to seconds" do
@@ -81,6 +80,18 @@ describe Call do
     end
     it "is valid with 0 cost" do
       FactoryGirl.build(:call, cost: 0.00).should be_valid
+    end
+  end
+
+  #
+  # Time
+  #
+  context "time" do
+    it "is invalid with negative value" do
+      FactoryGirl.build(:call, time: "-1").should_not be_valid
+    end
+    it "is invalid with alphanumeric value" do
+      FactoryGirl.build(:call, time: "a").should_not be_valid
     end
   end
 end

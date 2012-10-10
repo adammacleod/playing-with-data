@@ -20,7 +20,7 @@ class Call < ActiveRecord::Base
     result = nil
     begin
       result = Time.parse(val)
-    rescue ArgumentError
+    rescue ArgumentError, TypeError
     end
     write_attribute(:time, result)
   end
