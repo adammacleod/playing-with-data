@@ -4,27 +4,63 @@
 
   <hr>
 
-  <h2>Reports</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Source Number</th>
-        <th>Total Calls</th>
-        <th>Total Duration</th>
-        <th>Total Cost</th>
-        <th>Average Duration</th>
-        <th>Average Cost</th>
-      </tr>
-    </thead>
-    <% @totals.each do |source, totals| %>
-      <tr>
-        <td><%= source %></td>
-        <td><%= totals['count'] %></td>
-        <td><%= format_duration(totals['duration']) %></td>
-        <td><%= totals['cost'] %></td>
-        <td><%= format_duration(totals['avg_duration']) %></td>
-        <td><%= number_to_currency(totals['avg_cost']) %></td>
-      </tr>
-    <% end %>
-  </table>
+  <% if @bill.invalid_calls.any? %>
+    <h2>Invalid Calls</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Line Number</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Duration</th>
+          <th>Cost</th>
+          <th>Errors</th>
+        </tr>
+      </thead>
+      <% @bill.invalid_calls.each do |call| %>
+        <tr>
+          <td><%= call.lineno %></td>
+          <td><%= call.source %></td>
+          <td><%= call.destination %></td>
+          <td><%= call.date %></td>
+          <td><%= call.time %></td>
+          <td><%= call.duration %></td>
+          <td><%= call.cost %></td>
+          <td>
+            <ul>
+              <% call.error_messages.each do |attr, message| %>
+                <li><%= "#{attr} #{message}" %></li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h2>Reports</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Source Number</th>
+          <th>Total Calls</th>
+          <th>Total Duration</th>
+          <th>Total Cost</th>
+          <th>Average Duration</th>
+          <th>Average Cost</th>
+        </tr>
+      </thead>
+      <% @totals.each do |source, totals| %>
+        <tr>
+          <td><%= source %></td>
+          <td><%= totals['count'] %></td>
+          <td><%= format_duration(totals['duration']) %></td>
+          <td><%= totals['cost'] %></td>
+          <td><%= format_duration(totals['avg_duration']) %></td>
+          <td><%= number_to_currency(totals['avg_cost']) %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 </div>

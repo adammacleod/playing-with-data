@@ -27,10 +27,6 @@ class Bill < ActiveRecord::Base
           ic.duration = row[:duration]
           ic.cost = row[:cost]
 
-          # errors = {}
-          # call.errors.map do |attr, message|
-          #   errors[attr] = message
-          # end
           ic.error_messages = call.errors
           ic.lineno = csv.lineno
 
