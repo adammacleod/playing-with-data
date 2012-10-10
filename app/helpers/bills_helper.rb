@@ -21,6 +21,6 @@ module BillsHelper
         message = call.error_messages[field].join("\n")
         css_class = "alert alert-error"
     end
-    %!<td class="#{css_class}" title="#{message}">#{value}</td>!
+    content_tag('td', value, :class => css_class, :title => message)
   end
 end
