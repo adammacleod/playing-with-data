@@ -63,7 +63,7 @@ module PlayingWithData
       g.test_framework :rspec,
         :fixtures => true,
         :view_specs => false,
-        :helper_specs => false,
+        :helper_specs => true,
         :routing_specs => false,
         :controller_specs => true,
         :request_specs => true
