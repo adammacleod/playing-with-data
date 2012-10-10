@@ -14,7 +14,8 @@ class Bill < ActiveRecord::Base
         call = Call.new()
         call.source = row[:source]
         call.destination = row[:destination]
-        call.datetime = "#{row[:date]} #{row[:time]}"
+        call.date = row[:date]
+        call.time = row[:time]
         call.duration = row[:duration]
         call.cost = row[:cost]
         call.bill = self

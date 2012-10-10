@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010035008) do
+ActiveRecord::Schema.define(:version => 20121010220154) do
 
   create_table "bills", :force => true do |t|
     t.string   "csv"
@@ -23,11 +23,12 @@ ActiveRecord::Schema.define(:version => 20121010035008) do
     t.integer  "bill_id"
     t.string   "source"
     t.string   "destination"
-    t.datetime "datetime"
     t.integer  "duration"
     t.decimal  "cost",        :precision => 10, :scale => 2, :default => 0.0
     t.datetime "created_at",                                                  :null => false
     t.datetime "updated_at",                                                  :null => false
+    t.date     "date"
+    t.time     "time"
   end
 
   add_index "calls", ["bill_id"], :name => "index_calls_on_bill_id"

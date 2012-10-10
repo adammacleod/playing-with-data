@@ -1,8 +1,9 @@
 class Call < ActiveRecord::Base
   belongs_to :bill
-  attr_accessible :source, :destination, :datetime, :duration, :cost
+  attr_accessible :source, :destination, :date, :time, :duration, :cost
 
   def duration=(val)
+    result = nil
     begin
       result = val.to_s.split(/:/)
              .map { |t| t.to_i }
@@ -11,9 +12,17 @@ class Call < ActiveRecord::Base
              .map { |i,j| i*j }
              .inject(:+)
     rescue ArgumentError, TypeError
-      errors.add(:duration, "Duration #{val} is not valid.")
     end
     write_attribute(:duration, result)
+  end
+
+  def time=(val)
+    result = nil
+    begin
+      result = Time.parse(val)
+    rescue ArgumentError
+    end
+    write_attribute(:time, result)
   end
 
   # Handling Money:
@@ -22,7 +31,8 @@ class Call < ActiveRecord::Base
 
   validates_presence_of :source
   validates_presence_of :destination
-  validates_presence_of :datetime, :message => "field is invalid"
+  validates_presence_of :date, :message => "is not a valid date"
+  validates_presence_of :time, :message => "is not a valid time"
   validates :duration, :presence => true,
                    :numericality => { :greater_than_or_equal_to => 0 }
   validates :cost, :presence => true,
