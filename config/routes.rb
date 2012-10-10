@@ -1,7 +1,10 @@
+require 'sidekiq/web'
+
 PlayingWithData::Application.routes.draw do
   resources :bills, :except => [:edit, :destroy, :update]
 
   root :to => "bills#index"
+  mount Sidekiq::Web, at: '/sidekiq'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

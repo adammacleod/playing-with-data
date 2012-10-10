@@ -15,6 +15,7 @@ class BillsController < ApplicationController
 
     respond_to do |format|
       if @bill.save
+        BillsWorker.perform_async(@bill.id)
         format.html { redirect_to @bill }
       else
         format.html { render action: "new" }
@@ -26,8 +27,11 @@ class BillsController < ApplicationController
   def show
     @bill = Bill.find(params[:id])
 
-    @totals = summarize_calls(@bill.calls.group('source'))
-    @totals.merge!({ 'TOTAL' => summarize_calls(@bill.calls).values.first })
+    @totals = {}
+    if @bill.calls.any?
+      @totals = summarize_calls(@bill.calls.group('source'))
+      @totals.merge!({ 'TOTAL' => summarize_calls(@bill.calls).values.first })
+    end
   end
 
   def summarize_calls(calls)

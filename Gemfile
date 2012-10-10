@@ -40,6 +40,11 @@ gem 'debugger'
 # File Uploads
 gem 'carrierwave'
 
+# Sidekiq
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
