@@ -16,25 +16,25 @@
           <th>Time</th>
           <th>Duration</th>
           <th>Cost</th>
-          <th>Errors</th>
+          <!-- <th>Errors</th> -->
         </tr>
       </thead>
       <% @bill.invalid_calls.each do |call| %>
         <tr>
           <td><%= call.lineno %></td>
-          <td><%= call.source %></td>
-          <td><%= call.destination %></td>
-          <td><%= call.date %></td>
-          <td><%= call.time %></td>
-          <td><%= call.duration %></td>
-          <td><%= call.cost %></td>
-          <td>
+          <%= raw generate_invalid_call_field(call, :source) %>
+          <%= raw generate_invalid_call_field(call, :destination) %>
+          <%= raw generate_invalid_call_field(call, :date) %>
+          <%= raw generate_invalid_call_field(call, :time) %>
+          <%= raw generate_invalid_call_field(call, :duration) %>
+          <%= raw generate_invalid_call_field(call, :cost) %>
+          <!-- <td>
             <ul>
               <% call.error_messages.each do |attr, message| %>
                 <li><%= "#{attr} #{message}" %></li>
               <% end %>
             </ul>
-          </td>
+          </td> -->
         </tr>
       <% end %>
     </table>

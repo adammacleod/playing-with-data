@@ -12,4 +12,15 @@ module BillsHelper
     time = "#{days}d #{time}" if days != 0
     time
   end
+
+  def generate_invalid_call_field(call, field)
+    message = ""
+    css_class = ""
+    value = call.read_attribute(field)
+    if call.error_messages[field].any?
+        message = call.error_messages[field].join("\n")
+        css_class = "alert alert-error"
+    end
+    %!<td class="#{css_class}" title="#{message}">#{value}</td>!
+  end
 end
