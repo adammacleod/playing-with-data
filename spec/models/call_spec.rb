@@ -26,8 +26,8 @@ describe Call do
     it "is invalid without a cost" do
       FactoryGirl.build(:call, cost: nil).should_not be_valid
     end
-    it "is invalid without a bill" do
-      FactoryGirl.build(:call, bill: nil).should_not be_valid
+    it "is valid without a bill" do
+      FactoryGirl.build(:call, bill: nil).should be_valid
     end
   end
 

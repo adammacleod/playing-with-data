@@ -10,7 +10,7 @@ class Call < ActiveRecord::Base
              .zip([60**0, 60**1, 60**2])
              .map { |i,j| i*j }
              .inject(:+)
-    rescue ArgumentError
+    rescue ArgumentError, TypeError
       errors.add(:duration, "Duration #{val} is not valid.")
     end
     write_attribute(:duration, result)
