@@ -1,8 +1,8 @@
 Description:
-    Explain the generator
+    Generates a csv bill file with data suitable for testing.
 
 Example:
-    rails generate bill_csv Thing
+    rails generate bill_csv file_name --random-errors --num-accounts=5 --max-num-calls=10
 
     This will create:
-        what/will/it/create
+        doc/file_name.csv with 10 accounts, a max of 10 calls per account and randomly introduced errors.

@@ -2,10 +2,12 @@ require 'csv'
 
 class BillCsvGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
+  class_option :random_errors, :type => :boolean, :default => false, :description => "Induce random errors"
+  class_option :num_accounts, :type => :numeric, :default => 10, :description => "Number of source accounts"
+  class_option :max_num_calls, :type => :numeric, :default => 50, :description => "Maximum number of calls per account"
 
   def write_csv
-    #file_name is passed in because this is a Named Generator, it expects a name as the first argument.
-    CSV.open("/tmp/test.csv", "wb") do |csv|
+    CSV.open("doc/#{file_name}.csv", "wb") do |csv|
       csv << ["Source","Destination","Date","Time","Duration","Cost"]
       generate_csv_row { |row| csv << row }
     end
@@ -14,14 +16,45 @@ class BillCsvGenerator < Rails::Generators::NamedBase
   private
 
   def generate_csv_row
-    10.times do
-      src = source
-      rand(500).times do
-        yield [src, destination, date, time, duration, cost]
+    options.num_accounts.times do
+      src = gen :source
+      rand(options.max_num_calls).times do
+        yield [src, gen(:destination), gen(:date), gen(:time), gen(:duration), gen(:cost)]
       end
     end
   end
 
+  def gen(method)
+    res = self.send(method)
+    if options.random_errors and rand > 0.9 # Introduce 10% errors
+      res = self.send([:garbage, :reverse, :zero, :negative].sample, res)
+    end
+    res
+  end
+
+  #
+  # Error inducing methods
+  #
+  def garbage(val)
+    chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    val[rand val.length] = chars[rand chars.length]
+  end
+
+  def reverse(val)
+    val.reverse
+  end
+
+  def zero(val)
+    "0"
+  end
+
+  def negative(val)
+    "-1"
+  end
+
+  #
+  # Random data generators
+  #
   def source
     "0414%06d" % rand(1000000)
   end
