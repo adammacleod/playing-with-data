@@ -20,9 +20,9 @@ class Call < ActiveRecord::Base
   # http://stackoverflow.com/questions/1019939/ruby-on-rails-best-method-of-handling-currency-money
   # https://github.com/tobi/money_column
 
-  validates :source, :presence => true
-  validates :destination, :presence => true
-  validates :datetime, :presence => true
+  validates_presence_of :source
+  validates_presence_of :destination
+  validates_presence_of :datetime, :message => "field is invalid"
   validates :duration, :presence => true,
                    :numericality => { :greater_than_or_equal_to => 0 }
   validates :cost, :presence => true,
