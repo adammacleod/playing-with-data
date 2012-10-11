@@ -1,5 +1,6 @@
 module BillsHelper
   def format_duration(duration)
+    duration = duration.to_i
     return nil if duration < 0
 
     duration = duration.floor

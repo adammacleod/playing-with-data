@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011001103) do
+ActiveRecord::Schema.define(:version => 20121011053630) do
 
   create_table "bills", :force => true do |t|
     t.string   "csv"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20121011001103) do
     t.string   "time"
     t.string   "duration"
     t.string   "cost"
-    t.string   "error_messages"
+    t.text     "error_messages"
     t.integer  "lineno"
     t.string   "csv_source"
     t.integer  "bill_id"

@@ -1,7 +1,7 @@
 class BillsController < ApplicationController
   # GET /bills
   def index
-    @bills = Bill.all.reverse
+    @bills = Bill.order("id DESC").all
   end
 
   # GET /bills/new
@@ -29,13 +29,22 @@ class BillsController < ApplicationController
 
     @totals = {}
     if @bill.calls.any?
-      @totals = summarize_calls(@bill.calls.group('source'))
-      @totals.merge!({ 'TOTAL' => summarize_calls(@bill.calls).values.first })
+      @totals = summarize_calls_by_source(@bill.calls)
+      @totals.merge!({ 'TOTAL' => summarize_calls(@bill.calls) })
     end
   end
 
   def summarize_calls(calls)
     calls.select("
+      count(*) as count,
+      sum(duration) as duration,
+      sum(cost) as cost,
+      avg(duration) as avg_duration,
+      avg(cost) as avg_cost").first.attributes
+  end
+
+  def summarize_calls_by_source(calls)
+    calls.group('source').select("
       source,
       count(*) as count,
       sum(duration) as duration,
