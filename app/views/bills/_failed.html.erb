@@ -1,0 +1,25 @@
+  <h2>Invalid Calls</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Line Number</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Duration</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <% @bill.invalid_calls.each do |call| %>
+        <tr>
+          <td><%= call.lineno %></td>
+          <%= generate_invalid_call_field(call, :source) %>
+          <%= generate_invalid_call_field(call, :destination) %>
+          <%= generate_invalid_call_field(call, :date) %>
+          <%= generate_invalid_call_field(call, :time) %>
+          <%= generate_invalid_call_field(call, :duration) %>
+          <%= generate_invalid_call_field(call, :cost) %>
+        </tr>
+      <% end %>
+    </table>
