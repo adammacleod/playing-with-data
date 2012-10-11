@@ -45,6 +45,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
+# State Machine
+gem 'state_machine'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'

@@ -1,1 +1,9 @@
-<div><%= link_to "#{bill.csv.file.filename} #{time_ago_in_words(bill.created_at)} ago", bill %></div>
+<div>
+  <%= link_to "#{bill.csv.file.filename} #{time_ago_in_words(bill.created_at)} ago", bill %>
+  <%
+    label, css_class = 'New', 'label-info' if bill.new?
+    label, css_class = 'Processing', 'label-warning' if bill.processing?
+    label, css_class = 'Failed', 'label-important' if bill.failed?
+  %>
+  <%= content_tag('span', label, :class => ["label", css_class]) if label %>
+</div>
