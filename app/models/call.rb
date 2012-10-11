@@ -6,7 +6,7 @@ class Call < ActiveRecord::Base
     result = nil
     begin
       result = val.to_s.split(/:/)
-             .map { |t| t.to_i }
+             .map { |t| Integer(t, 10) }
              .reverse
              .zip([60**0, 60**1, 60**2])
              .map { |i,j| i*j }
@@ -31,10 +31,10 @@ class Call < ActiveRecord::Base
 
   validates_presence_of :source
   validates_presence_of :destination
-  validates_presence_of :date, :message => "is not a valid date"
-  validates_presence_of :time, :message => "is not a valid time"
-  validates :duration, :presence => true,
-                   :numericality => { :greater_than_or_equal_to => 0 }
+  validates_presence_of :date,     :message => "is not a valid date"
+  validates_presence_of :time,     :message => "is not a valid time"
+  validates_presence_of :duration, :message => "is not a valid duration"
+  validates :duration, :numericality => { :greater_than_or_equal_to => 0 }
   validates :cost, :presence => true,
                    :numericality => { :greater_than_or_equal_to => 0 }
 end
